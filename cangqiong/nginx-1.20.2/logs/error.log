@@ -1,0 +1,6 @@
+2022/09/13 09:52:09 [emerg] 16120#18744: CreateFile() "E:\2022新版课程\苍穹外卖项目\授课资料\day01\资料\前端运行环境\nginx-1.20.2/conf/nginx.conf" failed (1113: No mapping for the Unicode character exists in the target multi-byte code page)
+2022/09/19 14:13:10 [emerg] 6884#1840: CreateFile() "E:\2022新版课程\苍穹外卖项目\授课资料\day01\资料\前端运行环境\nginx-1.20.2/conf/nginx.conf" failed (1113: No mapping for the Unicode character exists in the target multi-byte code page)
+2023/03/30 14:25:37 [emerg] 13808#11308: CreateFile() "D:\Work\备课\2023\项目一\苍穹外卖\资料\day01\前端运行环境\nginx-1.20.2/conf/nginx.conf" failed (1113: No mapping for the Unicode character exists in the target multi-byte code page)
+2023/08/29 10:16:41 [emerg] 40048#9496: CreateFile() "D:\Work\java143\项目一苍穹外卖\day01\资料\前端运行环境\nginx-1.20.2/conf/nginx.conf" failed (1113: No mapping for the Unicode character exists in the target multi-byte code page)
+2025/10/28 10:50:05 [emerg] 20620#13176: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2025/10/28 10:51:45 [emerg] 20340#20400: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
