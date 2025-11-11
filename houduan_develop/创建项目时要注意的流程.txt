@@ -1,0 +1,3 @@
+1、检查JDK版本
+2、检查Maven的配置路径
+3、检查file encoding是否是UTF-8
