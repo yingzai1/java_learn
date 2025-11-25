@@ -10,13 +10,17 @@ import com.liyinghuang.pojo.EmpLog;
 import com.liyinghuang.pojo.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 @Slf4j
 @Service//声明为springboot IOC容器中的bean
@@ -84,6 +88,45 @@ public class EmpServiceImp implements EmpService {
             //记录操作日志
             EmpLog empLog = new EmpLog(null, LocalDateTime.now(), emp.toString());
             empLogService.insertLog(empLog);
+        }
+    }
+
+//    @Transactional(rollbackFor = Exception.class)
+//    @Override
+//    public void delete(Integer id) {
+//        //删除员工信息
+//        empMapper.delete(id);
+//        //删除员工的经历信息
+//        empExprMapper.delete(id);
+//    }    @Transactional(rollbackFor = Exception.class)
+    //使用foreach语句进行删除
+    @Override
+    public void delete(List<Integer> ids) {
+        //删除员工信息
+        empMapper.delete(ids);
+        //删除员工的经历信息
+        empExprMapper.delete(ids);
+    }
+
+    @Override
+    public Emp getInfo(Integer id) {
+        return empMapper.getInfo(id);
+    }
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void update(Emp emp) {
+        //对基本属性进行配置
+        emp.setUpdateTime(LocalDateTime.now());
+        //保存基本属性(用id来进行位置确认)
+        empMapper.update(emp);
+        //清空工作经历
+        empExprMapper.delete(Arrays.asList(emp.getId()));
+        //保存新的员工经历
+        List<EmpExpr> exprList = emp.getExprList();
+        if(exprList!=null && !exprList.isEmpty()){//1、防止对象不存在。2、防止对象存在但里面没元素
+            emp.getExprList().forEach(emp1->emp1.setEmpId(emp.getId()));
+            log.info("工作经历数量:{}",exprList.size());
+            empExprMapper.add_empExp(exprList);
         }
     }
 }

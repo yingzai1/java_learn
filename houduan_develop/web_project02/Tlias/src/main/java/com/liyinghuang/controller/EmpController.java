@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Slf4j
 @RequestMapping("/emps")
@@ -44,6 +45,31 @@ public class EmpController {
     public Result add(@RequestBody Emp emp) throws Exception {
         log.info("{}",emp);
         empService.add(emp);
+        return Result.success();
+    }
+//    @DeleteMapping
+//    public Result delete(Integer []ids){
+//            //根据ID值进行删除
+//            for (int i = 0; i < ids.length; i++) {
+//                empService.delete(ids[i]);
+//            }
+//        return Result.success();
+//    }
+    @DeleteMapping
+    public Result delete(@RequestParam List<Integer> ids) {
+        //根据ID值进行删除
+        empService.delete(ids);
+        return Result.success();
+    }
+    @GetMapping("/{id}")
+    public Result getInfo(@PathVariable(name="id") Integer id){
+        Emp data=empService.getInfo(id);
+        return Result.success(data);
+    }
+    @PutMapping
+    public Result update(@RequestBody Emp emp){
+        log.info("控制层接受到的输入:{}",emp);
+        empService.update(emp);
         return Result.success();
     }
 }

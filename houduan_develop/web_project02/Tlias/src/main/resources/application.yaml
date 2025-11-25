@@ -19,3 +19,8 @@ mybatis.configuration.map-underscore-to-camel-case: true
 logging:
   level:
     org.springframework.jdbc.support.JdbcTransactionManager: debug
+aliyun:
+  oss:
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    bucketName: lyhniubi
+    region: cn-beijing

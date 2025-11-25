@@ -1,13 +1,12 @@
 package com.liyinghuang.mapper;
 
 import com.liyinghuang.pojo.Emp;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 
 //无条件分页查询方法一：
@@ -41,4 +40,16 @@ public interface EmpMapper {
     @Insert("insert into emp(username, name, gender, phone, job, salary, image, entry_date, dept_id, create_time, update_time) " +
             "VALUES(#{username},#{name},#{gender},#{phone},#{job},#{salary},#{image},#{entryDate},#{deptId},#{createTime},#{updateTime})")
     void add_emp(Emp emp);
+    //@Delete("delete from emp where id=#{id}")
+    void delete(List<Integer> ids);
+    Emp getInfo(Integer id);
+    //根据id来对顾员信息进行更新
+    void update(@Param("emp") Emp emp);
+
+
+    //返回部门的名称及其对应的人数
+    @MapKey("pos")
+    List<Map<String,Object>> countEmpJobData();
+    @MapKey("gender")
+    List<Map>countEmpGenderData();;
 }
