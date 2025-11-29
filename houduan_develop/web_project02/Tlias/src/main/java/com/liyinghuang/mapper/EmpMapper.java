@@ -2,7 +2,6 @@ package com.liyinghuang.mapper;
 
 import com.liyinghuang.pojo.Emp;
 import org.apache.ibatis.annotations.*;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -52,4 +51,10 @@ public interface EmpMapper {
     List<Map<String,Object>> countEmpJobData();
     @MapKey("gender")
     List<Map>countEmpGenderData();;
+    @MapKey("name")
+    List<Map> getReportEmpGenderData();
+    @MapKey("jobList")
+    List<Map> getReportStudentDegreeData();
+    @MapKey("clazz")
+    List<Map> getReportStudentCountData();
 }
