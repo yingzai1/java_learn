@@ -29,7 +29,6 @@
     <select id="list" resultType="com.liyinghuang.pojo.Emp">
         select e.*, d.name deptName from emp as e left join dept as d on e.dept_id = d.id
                                     <where>
---                                         进行模糊匹配
                                         <if test="name != null and name != ''">
                                             e.name like concat('%',#{name},'%')
                                         </if>
@@ -113,6 +112,9 @@
         from  student s
             left join clazz c on s.clazz_id=c.id
         group by c.name
+    </select>
+    <select id="login" resultType="com.liyinghuang.pojo.LoginInfo">
+        select id,username,name from emp where username=#{username} and password=#{password}
     </select>
 
 

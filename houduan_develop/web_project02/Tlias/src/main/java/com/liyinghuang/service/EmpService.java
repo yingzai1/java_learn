@@ -1,6 +1,7 @@
 package com.liyinghuang.service;
 
 import com.liyinghuang.pojo.Emp;
+import com.liyinghuang.pojo.LoginInfo;
 import com.liyinghuang.pojo.PageResult;
 
 import java.time.LocalDate;
@@ -19,4 +20,6 @@ public interface EmpService {
     Emp getInfo(Integer id);
 
     void update(Emp emp);
+
+    LoginInfo login(Emp emp);
 }

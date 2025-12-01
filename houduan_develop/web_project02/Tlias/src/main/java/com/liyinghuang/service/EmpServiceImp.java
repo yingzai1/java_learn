@@ -4,24 +4,22 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.liyinghuang.mapper.EmpExprMapper;
 import com.liyinghuang.mapper.EmpMapper;
-import com.liyinghuang.pojo.Emp;
-import com.liyinghuang.pojo.EmpExpr;
-import com.liyinghuang.pojo.EmpLog;
-import com.liyinghuang.pojo.PageResult;
+import com.liyinghuang.pojo.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.liyinghuang.utils.JwtUtils.generateJwt;
+
 @Slf4j
 @Service//声明为springboot IOC容器中的bean
 public class EmpServiceImp implements EmpService {
@@ -128,5 +126,22 @@ public class EmpServiceImp implements EmpService {
             log.info("工作经历数量:{}",exprList.size());
             empExprMapper.add_empExp(exprList);
         }
+    }
+
+    @Override
+    public LoginInfo login(Emp emp) {
+        //检查员工"username": "jinyong",
+        //    "password": "123456"
+        LoginInfo login = empMapper.login(emp);
+        if(login!=null){
+            //生成相应的pwt
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",login.getId());
+            map.put("username",login.getUsername());
+            String s = generateJwt(map);
+            login.setToken(s);
+            return login;
+        }
+        return null;
     }
 }

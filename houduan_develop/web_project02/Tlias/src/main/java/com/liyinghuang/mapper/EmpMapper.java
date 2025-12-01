@@ -1,6 +1,7 @@
 package com.liyinghuang.mapper;
 
 import com.liyinghuang.pojo.Emp;
+import com.liyinghuang.pojo.LoginInfo;
 import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDate;
@@ -57,4 +58,6 @@ public interface EmpMapper {
     List<Map> getReportStudentDegreeData();
     @MapKey("clazz")
     List<Map> getReportStudentCountData();
+
+    LoginInfo login(Emp emp);
 }
