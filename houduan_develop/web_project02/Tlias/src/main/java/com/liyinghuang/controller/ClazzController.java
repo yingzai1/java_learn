@@ -1,5 +1,6 @@
 package com.liyinghuang.controller;
 
+import com.liyinghuang.anno.Log;
 import com.liyinghuang.pojo.Clazz;
 import com.liyinghuang.pojo.ClazzFindByIdResult;
 import com.liyinghuang.pojo.ClazzResult;
@@ -31,11 +32,13 @@ public class ClazzController {
         ClazzResult r = clazzServiceImp.selectClazzByCase(name, begin, end, page, pageSize);
         return Result.success(r);
     }
+    @Log
     @DeleteMapping("/clazzs/{id}")
     public Result deleteClazzById(@PathVariable(name="id") Integer id){
         clazzServiceImp.deleteClazzById(id);
         return Result.success();
     }
+    @Log
     @PostMapping("/clazzs")
     public Result insertClazz(@RequestBody Clazz clazz){
         log.info("接收到到的数据如下：{},{},{},{},{},{}",clazz.getName(),
@@ -53,6 +56,7 @@ public class ClazzController {
         ClazzFindByIdResult clazz = clazzServiceImp.selectClazzById(id);
         return Result.success(clazz);
     }
+    @Log
     //3.5修改班级信息
     @PutMapping("/clazzs")
     public Result updateClazz(@RequestBody Clazz clazz){

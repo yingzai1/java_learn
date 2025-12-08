@@ -1,5 +1,6 @@
 package com.liyinghuang.filter;
 
+import com.liyinghuang.utils.CurrentHolder;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -48,6 +49,7 @@ public class DemoFilter implements Filter {//这里filter千万不要导错包
         }
         //放行
         filterChain.doFilter(request,response);
+        CurrentHolder.remove();//释放资源
     }
 
     @Override

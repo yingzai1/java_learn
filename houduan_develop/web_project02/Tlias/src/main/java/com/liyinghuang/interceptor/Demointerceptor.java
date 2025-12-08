@@ -1,5 +1,6 @@
 package com.liyinghuang.interceptor;
 
+import com.liyinghuang.utils.CurrentHolder;
 import com.liyinghuang.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,6 +35,9 @@ public class Demointerceptor implements HandlerInterceptor {
         //对token的合法性进行检查
         try {
             Claims claims = parseJwt(token);
+            System.out.println("-------------------------------------------------------");
+            System.out.println(Integer.valueOf(claims.get("id").toString()));
+            CurrentHolder.setCurrentId(Integer.valueOf(claims.get("id").toString()));
         } catch (Exception e) {
             log.info("非法的token~");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -50,6 +54,8 @@ public class Demointerceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        // 清理ThreadLocal，防止内存泄漏
+        CurrentHolder.remove();
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }
 }

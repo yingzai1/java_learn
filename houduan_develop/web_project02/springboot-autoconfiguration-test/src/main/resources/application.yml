@@ -1,0 +1,6 @@
+#spring.application.name=aliyun-oss-spring-boot-autoconfigure
+aliyun:
+  oss:
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    bucketName: lyhniubi
+    region: cn-beijing
